@@ -737,7 +737,7 @@
 
       window.request = axios.create({
         baseURL: "https://api.github.com/",
-        timeout: 10000,
+        timeout: 30000,
         headers: {
           Authorization: "Bearer " + baseToken,
           Accept: "application/vnd.github+json",
@@ -751,7 +751,13 @@
           return response;
         },
         function (error) {
+          console.error("请求失败", error);
           hideLoading();
+          const errorMsg = document.createElement('div');
+          errorMsg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,0.1);padding:15px;border-radius:4px;z-index:1000;';
+          errorMsg.textContent = error.response?.data?.message || '请求失败，请检查网络连接和Token设置';
+          document.body.appendChild(errorMsg);
+          setTimeout(() => errorMsg.remove(), 3000);
           return Promise.reject(error);
         }
       );
@@ -814,19 +820,38 @@
         if (!path && !isRoot) return;
         if (event) event.preventDefault();
         showLoading();
-        getContent(path + "?t=" + new Date().getTime()).then((data) => {
-          console.log(data);
-          window.fileList = (data || [])
-            .filter((d) => d.name != "init.jpg")
-            .map((item) => {
-              item.ftype = getType(item.name);
-              if (item.type == "dir") item.ftype = "dir";
-              return item;
-            });
-          window.fileList.sort((a, b) => (a.type < b.type ? -1 : 1));
-          if (path && !isBack) paths.push(path);
-          initFileList();
-        });
+        
+        // 检查Token是否设置
+        if (!baseToken) {
+          hideLoading();
+          const msg = document.createElement('div');
+          msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,0.1);padding:15px;border-radius:4px;z-index:1000;';
+          msg.textContent = '请先设置Token';
+          document.body.appendChild(msg);
+          setTimeout(() => msg.remove(), 3000);
+          return;
+        }
+
+        getContent(path + "?t=" + new Date().getTime())
+          .then((data) => {
+            console.log("获取目录内容:", data);
+            window.fileList = (data || [])
+              .filter((d) => d.name != "init.jpg")
+              .map((item) => {
+                item.ftype = getType(item.name);
+                if (item.type == "dir") item.ftype = "dir";
+                return item;
+              });
+            window.fileList.sort((a, b) => (a.type < b.type ? -1 : 1));
+            if (path && !isBack) paths.push(path);
+            initFileList();
+          })
+          .catch((error) => {
+            console.error("获取目录失败:", error);
+            hideLoading();
+            window.fileList = [];
+            initFileList();
+          });
       }
 
       function addDir() {
@@ -906,18 +931,26 @@
       }
 
       function getContent(path, isFull) {
+        showLoading();
         if (isFull) return request.get(`/repos/${baseRepo}/contents/${path}`);
 
         return new Promise((reso, rej) => {
           request
             .get(`/repos/${baseRepo}/contents/${path}`)
             .then((res) => {
+              hideLoading();
               if (Array.isArray(res.data)) return reso(res.data);
               reso(Base64.decode(res.data.content));
             })
-            .catch(() => {
-              console.log("not exit file: " + path);
-              reso(null);
+            .catch((error) => {
+              hideLoading();
+              console.error("获取文件内容失败: " + path, error);
+              // 如果是404错误，说明目录为空
+              if (error.response?.status === 404) {
+                reso([]);
+              } else {
+                reso(null);
+              }
             });
         });
       }
