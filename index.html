@@ -203,51 +203,134 @@
       }
       @media screen and (max-width: 700px) {
         body {
-          max-width: 95%;
-          padding: 0 10px;
+          max-width: 100%;
+          padding: 0 15px;
+          -webkit-tap-highlight-color: transparent;
         }
-        .file_list li span {
-          display: none !important;
+        
+        /* 优化标题显示 */
+        h2 {
+          font-size: 18px;
+          padding: 12px 0;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 8px;
         }
-        .back.ftr {
-          display: none;
+
+        /* 优化按钮样式 */
+        .back {
+          padding: 6px 12px;
+          font-size: 14px;
+          margin-left: 0;
+          height: 32px;
+          min-width: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
+
+        /* 优化搜索框 */
         input#search {
-          display: inline-block;
-          margin: 10px 0 0;
-          min-width: 200px;
+          display: block;
+          margin: 12px 0;
+          width: 100%;
+          min-width: unset;
+          height: 40px;
+          font-size: 16px;
         }
-        button {
-          margin-top: 6px;
+
+        /* 优化按钮组 */
+        #btn-wrap {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+          gap: 8px;
+          margin: 12px 0;
+          width: 100%;
         }
+
+        #btn-wrap button {
+          margin: 0;
+          font-size: 14px;
+          padding: 6px 12px;
+          height: 32px;
+          width: 100%;
+          white-space: nowrap;
+        }
+
+        /* 优化文件列表 */
+        .file_list {
+          margin-top: 15px;
+        }
+
         .file_list li {
           width: 100% !important;
           margin-right: 0 !important;
           float: none !important;
+          padding: 8px 0;
+          gap: 10px;
         }
-        h2 {
+
+        .file_list li:before {
+          min-width: 50px;
+          padding: 0 8px;
+          line-height: 24px;
+          height: 24px;
+          font-size: 12px;
+          flex-shrink: 0;
+        }
+
+        .file_list li a {
+          flex: 1;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 15px;
+          line-height: 24px;
+        }
+
+        /* 优化拖放区域 */
+        #drop-zone {
+          min-height: calc(100vh - 160px) !important;
+        }
+
+        .drag-hint {
+          padding: 20px;
+          font-size: 14px;
+          text-align: center;
+          background: rgba(255, 144, 0, 0.1);
+          border-radius: 8px;
+          margin: 15px 0;
+        }
+
+        /* 优化空状态提示 */
+        .empty-hint {
+          padding: 40px 20px;
+          text-align: center;
+          color: #666;
+        }
+
+        /* 优化根目录选择 */
+        #rootdm {
+          width: 100%;
+          margin: 12px 0;
+          height: 40px;
           font-size: 16px;
         }
-        .back {
-          padding: 2px 8px;
-          font-size: 13px;
-          margin-left: 10px;
+
+        /* 触摸优化 */
+        a, button, .back {
+          touch-action: manipulation;
+          -webkit-touch-callout: none;
         }
-        #rootdm {
-          min-width: 200px;
-          width: 100%;
-          margin-bottom: 10px;
-        }
-        #btn-wrap {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 5px;
-          margin-top: 5px;
-        }
-        #btn-wrap button {
-          margin: 0;
-          font-size: 13px;
-          padding: 2px 8px;
+
+        /* 优化加载状态 */
+        .loading {
+          padding: 20px;
+          text-align: center;
+          font-size: 14px;
         }
       }
       input {
