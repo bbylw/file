@@ -215,9 +215,15 @@
           margin-bottom: 15px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
           flex-wrap: wrap;
           gap: 8px;
+        }
+
+        h2 i {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         /* 优化按钮样式 */
@@ -227,9 +233,13 @@
           margin-left: 0;
           height: 32px;
           min-width: 60px;
-          display: flex;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
+        }
+
+        .back.ftr {
+          display: inline-flex !important;
         }
 
         /* 优化搜索框 */
@@ -271,6 +281,16 @@
           float: none !important;
           padding: 8px 0;
           gap: 10px;
+        }
+
+        .file_list li span {
+          display: inline-block !important;
+          font-size: 12px;
+          color: #666;
+        }
+
+        .file_list li span.sha {
+          display: none !important;
         }
 
         .file_list li:before {
@@ -331,6 +351,24 @@
           padding: 20px;
           text-align: center;
           font-size: 14px;
+        }
+
+        /* 优化操作按钮布局 */
+        .operation-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 8px;
+          width: 100%;
+        }
+
+        /* 优化文件信息显示 */
+        .file-info {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          color: #666;
         }
       }
       input {
