@@ -65,7 +65,6 @@
         display: flex;
         align-items: center;
         padding: 6px 0;
-        position: relative;
       }
       .w50 .file_list li {
         float: left;
@@ -149,27 +148,13 @@
         vertical-align: middle;
       }
       .file_list li a {
-        flex: 1;
         color: #fff;
         text-decoration: none;
+        flex: 1;
+        width: 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      }
-      .file_list li .size {
-        margin: 0 10px;
-        color: #666;
-        font-size: 13px;
-      }
-      .file_list li .del {
-        cursor: pointer;
-        color: #ff9000;
-        font-size: 13px;
-        opacity: 0.7;
-        transition: opacity 0.2s;
-      }
-      .file_list li .del:hover {
-        opacity: 1;
       }
       .file_list li.dir a {
         text-decoration: underline;
@@ -186,6 +171,10 @@
       }
       .file_list li span.sha {
         min-width: 350px;
+        display: inline-block;
+      }
+      .file_list li span.size {
+        width: 80px;
         display: inline-block;
       }
       .file_list li i {
@@ -214,307 +203,51 @@
       }
       @media screen and (max-width: 700px) {
         body {
-          max-width: 100%;
-          padding: 0 15px;
-          -webkit-tap-highlight-color: transparent;
+          max-width: 95%;
+          padding: 0 10px;
         }
-        
-        /* 优化标题显示 */
-        h2 {
-          font-size: 18px;
-          padding: 12px 0;
-          margin-bottom: 15px;
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 8px;
+        .file_list li span {
+          display: none !important;
         }
-
-        h2 i {
-          width: 100%;
-          margin-bottom: 8px;
-          font-size: 14px;
-          color: #666;
-        }
-
-        /* 优化按钮样式 */
-        .back {
-          padding: 6px 12px;
-          font-size: 14px;
-          margin-left: 0;
-          height: 32px;
-          min-width: 60px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
         .back.ftr {
-          display: inline-flex !important;
+          display: none;
         }
-
-        /* 优化搜索框 */
         input#search {
-          display: block;
-          margin: 12px 0;
-          width: 100%;
-          min-width: unset;
-          height: 40px;
+          display: inline-block;
+          margin: 10px 0 0;
+          min-width: 200px;
+        }
+        button {
+          margin-top: 6px;
+        }
+        .file_list li {
+          width: 100% !important;
+          margin-right: 0 !important;
+          float: none !important;
+        }
+        h2 {
           font-size: 16px;
         }
-
-        /* 优化按钮组 */
-        #btn-wrap {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-          gap: 8px;
-          margin: 12px 0;
+        .back {
+          padding: 2px 8px;
+          font-size: 13px;
+          margin-left: 10px;
+        }
+        #rootdm {
+          min-width: 200px;
           width: 100%;
-        }
-
-        #btn-wrap button {
-          margin: 0;
-          font-size: 14px;
-          padding: 6px 12px;
-          height: 32px;
-          width: 100%;
-          white-space: nowrap;
-        }
-
-        /* 优化文件列表 */
-        .file_list {
-          margin-top: 15px;
-        }
-
-        .file_list li {
-          padding: 8px 0;
-          line-height: 1.4;
-          flex-wrap: wrap;
-          gap: 4px;
-        }
-
-        .file_list li a {
-          width: calc(100% - 100px);
-          font-size: 15px;
-          line-height: 24px;
-          padding: 4px 0;
-        }
-
-        .file_list li .size {
-          margin: 0;
-          font-size: 12px;
-          min-width: 50px;
-          text-align: right;
-        }
-
-        .file_list li .del {
-          position: absolute;
-          right: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          padding: 4px 8px;
-          background: rgba(255, 144, 0, 0.1);
-          border-radius: 3px;
-        }
-
-        .file_list li:before {
-          min-width: 50px;
-          padding: 0 8px;
-          line-height: 24px;
-          height: 24px;
-          font-size: 12px;
-          flex-shrink: 0;
-          margin-right: 8px;
-        }
-
-        .file_list li.dir a {
-          color: #ff9000;
-        }
-
-        /* 优化空文件夹提示 */
-        .empty-folder-hint {
-          padding: 30px 20px;
-          margin: 15px 0;
-        }
-
-        .empty-folder-hint i {
-          font-size: 32px;
           margin-bottom: 10px;
         }
-
-        .empty-folder-hint p {
-          font-size: 14px;
-        }
-
-        /* 触摸优化 */
-        a, button, .back {
-          touch-action: manipulation;
-          -webkit-touch-callout: none;
-        }
-
-        /* 优化加载状态 */
-        .loading {
-          padding: 20px;
-          text-align: center;
-          font-size: 14px;
-        }
-
-        /* 优化操作按钮布局 */
-        .operation-buttons {
+        #btn-wrap {
           display: flex;
           flex-wrap: wrap;
-          gap: 8px;
-          margin-top: 8px;
-          width: 100%;
+          gap: 5px;
+          margin-top: 5px;
         }
-
-        /* 优化文件信息显示 */
-        .file-info {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 12px;
-          color: #666;
-        }
-      }
-      @media screen and (max-width: 700px) {
-        /* 优化触摸交互 */
-        .file_list li {
-          position: relative;
-          padding: 8px 0;
-          line-height: 1.4;
-          flex-wrap: wrap;
-          gap: 4px;
-          touch-action: pan-y;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        .file_list li a {
-          display: flex;
-          align-items: center;
-          width: calc(100% - 60px);
-          min-height: 44px;
-          font-size: 15px;
-          padding: 4px 0;
-          touch-action: manipulation;
-        }
-
-        .file_list li .del {
-          position: absolute;
-          right: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          padding: 8px 12px;
-          min-height: 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 144, 0, 0.1);
-          border-radius: 3px;
-          touch-action: manipulation;
-        }
-
-        .file_list li:active {
-          background: rgba(255, 144, 0, 0.05);
-        }
-
-        .file_list li .del:active {
-          background: rgba(255, 144, 0, 0.2);
-        }
-
-        /* 优化按钮触摸区域 */
-        .back, button {
-          min-height: 44px;
-          padding: 8px 16px;
-          touch-action: manipulation;
-        }
-
         #btn-wrap button {
-          min-height: 44px;
-          padding: 8px 12px;
-        }
-
-        /* 优化搜索框 */
-        input#search {
-          height: 44px;
-          font-size: 16px;
-          border-radius: 4px;
-        }
-
-        /* 优化根目录选择 */
-        #rootdm {
-          height: 44px;
-          font-size: 16px;
-          border-radius: 4px;
-        }
-
-        /* 优化标题区域 */
-        h2 {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          padding: 12px 0;
-        }
-
-        h2 i {
-          width: 100%;
-          margin-bottom: 8px;
-          font-size: 14px;
-          color: #666;
-        }
-
-        /* 优化操作按钮组 */
-        .operation-buttons {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-          gap: 8px;
-          width: 100%;
-          margin-top: 8px;
-        }
-
-        /* 优化拖放区域 */
-        #drop-zone {
-          min-height: calc(100vh - 160px) !important;
-        }
-
-        .drag-hint {
-          padding: 16px;
-          margin: 12px 0;
-          font-size: 14px;
-          text-align: center;
-          background: rgba(255, 144, 0, 0.1);
-          border-radius: 8px;
-        }
-
-        /* 优化加载状态 */
-        #loading {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          padding: 12px 24px;
-          background: rgba(0, 0, 0, 0.8);
-          border-radius: 4px;
-          z-index: 1000;
-        }
-
-        /* 优化空状态 */
-        .empty-folder-hint {
-          padding: 32px 16px;
-          margin: 16px 0;
-          border: 2px dashed rgba(255, 144, 0, 0.3);
-          border-radius: 8px;
-          text-align: center;
-        }
-
-        .empty-folder-hint i {
-          font-size: 32px;
-          margin-bottom: 12px;
-        }
-
-        .empty-folder-hint p {
-          font-size: 14px;
-          line-height: 1.5;
+          margin: 0;
+          font-size: 13px;
+          padding: 2px 8px;
         }
       }
       input {
@@ -646,44 +379,44 @@
   </head>
   <body>
     <div id="drop-zone" style="min-height: calc(100vh - 200px); position: relative;" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
-      <div class="drag-hint">
-        💡 支持拖拽上传：直接将文件拖放到页面任意位置即可上传
-      </div>
-      <p style="margin: 0">
-        版本号: 20250101-1
-        <span class="tip">测试延迟请在根目录上传<b>init.jpg</b>(50kb以内)</span>
-      </p>
-      <h4>
-        根域名: <input type="text" value="" id="rootdm" />
-        <div id="btn-wrap"></div>
-      </h4>
-      <input type="file" id="file" class="filepond" name="filepond" />
-      <h2>
-        当前目录：<i id="repo"></i>
-        <div class="operation-buttons">
-          <span onclick="addDir()" class="back">新建目录</span>
-          <span onclick="document.getElementById('file').click()" class="back">上传文件</span>
-          <span onclick="dirBack()" class="back">返回上级</span>
-          <span onclick="refresh()" class="back">刷新</span>
-          <span onclick="toggleWrap()" class="back">切换视图</span>
-          <span onclick="updateToken()" class="back">设置Token</span>
-          <span onclick="updateRepo()" class="back">设置Repo</span>
-        </div>
-        <input
-          type="text"
-          class="back"
-          id="search"
-          placeholder="关键词搜索, 回车确认"
-          onkeyup="search(event)"
-        />
-      </h2>
-      <div id="file_wrap">
-        <ul class="file_list" id="file_list">
-          加载中...
-        </ul>
-      </div>
-      <div id="loading" class="hide">处理中...</div>
+    <div class="drag-hint">
+      💡 支持拖拽上传：直接将文件拖放到页面任意位置即可上传
     </div>
+    <p style="margin: 0">
+      版本号: 20250101-1
+      <span class="tip">测试延迟请在根目录上传<b>init.jpg</b>(50kb以内)</span>
+    </p>
+    <h4>
+      根域名: <input type="text" value="" id="rootdm" />
+      <div style="display: inline-block" id="btn-wrap"></div>
+    </h4>
+    <input type="file" id="file" class="filepond" name="filepond" />
+    <h2>
+      当前目录：<i id="repo"></i>
+      <span onclick="addDir()" class="back">新建目录</span>
+      <span onclick="document.getElementById('file').click()" class="back"
+        >上传文件</span
+      >
+      <span onclick="dirBack()" class="back">←返回</span>
+      <span onclick="refresh()" class="back ftr">刷新</span>
+      <span onclick="toggleWrap()" class="back ftr">分列</span>
+      <span onclick="updateToken()" class="back ftr">设置Token</span>
+      <span onclick="updateRepo()" class="back ftr">设置Repo</span>
+      <input
+        type="text"
+        class="back ftr"
+        id="search"
+        placeholder="关键词搜索, 回车确认"
+        onkeyup="search(event)"
+      />
+      <!-- <span onclick="history.go(-1)" class="back">返回</span> -->
+    </h2>
+    <div id="file_wrap">
+      <ul class="file_list" id="file_list">
+        加载中...
+      </ul>
+    </div>
+    <div id="loading" class="hide">处理中...</div>
 
     <script>
       window.baseRepo = localStorage.getItem("GIT_REPO") || "dhjz/file";
@@ -737,7 +470,7 @@
 
       window.request = axios.create({
         baseURL: "https://api.github.com/",
-        timeout: 30000,
+        timeout: 10000,
         headers: {
           Authorization: "Bearer " + baseToken,
           Accept: "application/vnd.github+json",
@@ -751,13 +484,7 @@
           return response;
         },
         function (error) {
-          console.error("请求失败", error);
           hideLoading();
-          const errorMsg = document.createElement('div');
-          errorMsg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,0.1);padding:15px;border-radius:4px;z-index:1000;';
-          errorMsg.textContent = error.response?.data?.message || '请求失败，请检查网络连接和Token设置';
-          document.body.appendChild(errorMsg);
-          setTimeout(() => errorMsg.remove(), 3000);
           return Promise.reject(error);
         }
       );
@@ -778,14 +505,16 @@
         if (window.fileList.length) {
           document.getElementById("file_list").innerHTML = tempList
             .map((item) => {
-              const isDir = item.type === "dir";
-              const itemPath = item.path;
               return `<li class="file ${item.ftype}">
-                <a href="javascript:void(0)" onclick="handleItemClick('${itemPath}', ${isDir})">${item.name}</a>
-                <span class='sha'>${item.sha}</span>
-                <span class="size">${isDir ? '' : getUnit(item.size)}</span>
-                <i onclick="delOne('${itemPath}', '${item.sha}')" class="del">删除</i>
-              </li>`;
+            <a target="_blank" href="${rootdm}${item.path}" onclick="getDir('${
+                item.type == "dir" ? item.path : ""
+              }', false, event)">${item.name}</a><span class='sha'>${
+                item.sha
+              }</span><span class="size">${getUnit(item.size)}</span>
+            <i onclick="delOne('${item.path}', '${
+                item.sha
+              }')" class="del">删除</i>
+          </li>`;
             })
             .join("");
         } else {
@@ -804,15 +533,6 @@
           baseRepo + "/" + (paths.length ? paths[paths.length - 1] : "");
       }
 
-      function handleItemClick(path, isDir) {
-        if (isDir) {
-          getDir(path, false);
-        } else {
-          const rootdm = document.getElementById("rootdm").value || "";
-          window.open(rootdm + path, '_blank');
-        }
-      }
-
       // 初始化根目录
       if (baseToken) getDir("", true);
 
@@ -820,38 +540,19 @@
         if (!path && !isRoot) return;
         if (event) event.preventDefault();
         showLoading();
-        
-        // 检查Token是否设置
-        if (!baseToken) {
-          hideLoading();
-          const msg = document.createElement('div');
-          msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,0,0,0.1);padding:15px;border-radius:4px;z-index:1000;';
-          msg.textContent = '请先设置Token';
-          document.body.appendChild(msg);
-          setTimeout(() => msg.remove(), 3000);
-          return;
-        }
-
-        getContent(path + "?t=" + new Date().getTime())
-          .then((data) => {
-            console.log("获取目录内容:", data);
-            window.fileList = (data || [])
-              .filter((d) => d.name != "init.jpg")
-              .map((item) => {
-                item.ftype = getType(item.name);
-                if (item.type == "dir") item.ftype = "dir";
-                return item;
-              });
-            window.fileList.sort((a, b) => (a.type < b.type ? -1 : 1));
-            if (path && !isBack) paths.push(path);
-            initFileList();
-          })
-          .catch((error) => {
-            console.error("获取目录失败:", error);
-            hideLoading();
-            window.fileList = [];
-            initFileList();
-          });
+        getContent(path + "?t=" + new Date().getTime()).then((data) => {
+          console.log(data);
+          window.fileList = (data || [])
+            .filter((d) => d.name != "init.jpg")
+            .map((item) => {
+              item.ftype = getType(item.name);
+              if (item.type == "dir") item.ftype = "dir";
+              return item;
+            });
+          window.fileList.sort((a, b) => (a.type < b.type ? -1 : 1));
+          if (path && !isBack) paths.push(path);
+          initFileList();
+        });
       }
 
       function addDir() {
@@ -931,26 +632,18 @@
       }
 
       function getContent(path, isFull) {
-        showLoading();
         if (isFull) return request.get(`/repos/${baseRepo}/contents/${path}`);
 
         return new Promise((reso, rej) => {
           request
             .get(`/repos/${baseRepo}/contents/${path}`)
             .then((res) => {
-              hideLoading();
               if (Array.isArray(res.data)) return reso(res.data);
               reso(Base64.decode(res.data.content));
             })
-            .catch((error) => {
-              hideLoading();
-              console.error("获取文件内容失败: " + path, error);
-              // 如果是404错误，说明目录为空
-              if (error.response?.status === 404) {
-                reso([]);
-              } else {
-                reso(null);
-              }
+            .catch(() => {
+              console.log("not exit file: " + path);
+              reso(null);
             });
         });
       }
